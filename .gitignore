@@ -1,3 +1,5 @@
 *.suo
+*.csproj
 obj/
 bin/
+
