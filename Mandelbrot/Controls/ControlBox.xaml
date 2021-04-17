@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Mandelbrot.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="800"
     d:DesignWidth="300"
@@ -200,7 +199,7 @@
                     <ComboBoxItem Content="White" />
                     <ComboBoxItem Content="Black" />
                 </ComboBox>
-                <Button Content="clear screen" />
+                <Button Click="Clear_OnClick" Content="clear screen" />
             </StackPanel>
         </GroupBox>
     </StackPanel>

@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using Mandelbrot.Model;
 
 namespace Mandelbrot.Controls
 {
     /// <summary>
     /// Interaction logic for ControlBox.xaml
     /// </summary>
-    public partial class ControlBox : UserControl
+    public partial class ControlBox
     {
+        private BitmapDrawer Model => DataContext as BitmapDrawer;
+
         public ControlBox()
         {
             InitializeComponent();
+        }
+
+        private void Clear_OnClick(object sender, RoutedEventArgs e)
+        {
+            Model.Clear();
         }
     }
 }
