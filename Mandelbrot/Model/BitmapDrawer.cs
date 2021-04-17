@@ -16,7 +16,7 @@ namespace Mandelbrot.Model
             DrawCircle(50, 50, 25);
         }
 
-        public void Clear()
+        public void Clear(Color backgroundColor)
         {
             const int width = 600;
             const int height = 400;
@@ -26,10 +26,10 @@ namespace Mandelbrot.Model
             byte[] pix = new byte[bufferSize];
             for (int i = 0; i < width * height; i++)
             {
-                pix[4 * i + 0] = 255; // b
-                pix[4 * i + 1] = 255; // g
-                pix[4 * i + 2] = 255; // r
-                pix[4 * i + 3] = 255; // a
+                pix[4 * i + 0] = backgroundColor.B; 
+                pix[4 * i + 1] = backgroundColor.G;
+                pix[4 * i + 2] = backgroundColor.R;
+                pix[4 * i + 3] = backgroundColor.A;
             }
             Bitmap.WritePixels(rec, pix, stride, 0);
         }

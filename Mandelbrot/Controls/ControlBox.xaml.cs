@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Media;
 using Mandelbrot.Model;
 
 namespace Mandelbrot.Controls
@@ -17,7 +19,10 @@ namespace Mandelbrot.Controls
 
         private void Clear_OnClick(object sender, RoutedEventArgs e)
         {
-            Model.Clear();
+            var clearColorText = ClearColor.SelectionBoxItem as String;
+            var convertedColor = ColorConverter.ConvertFromString(clearColorText);
+            var color = (Color)(convertedColor ?? Colors.White);
+            Model.Clear(color);
         }
     }
 }

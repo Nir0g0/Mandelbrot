@@ -195,7 +195,7 @@
         </GroupBox>
         <GroupBox Header="Background">
             <StackPanel>
-                <ComboBox SelectedIndex="0">
+                <ComboBox Name="ClearColor" SelectedIndex="0">
                     <ComboBoxItem Content="White" />
                     <ComboBoxItem Content="Black" />
                 </ComboBox>
