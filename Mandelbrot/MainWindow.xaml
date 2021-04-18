@@ -1,0 +1,21 @@
+﻿<Window
+    x:Class="Mandelbrot.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Mandelbrot.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:Mandelbrot.Model"
+    Title="Mandelbrot Creator"
+    Width="1200"
+    Height="1000"
+    d:DataContext="{d:DesignInstance model:BitmapDrawer}"
+    MouseWheel="MainWindow_OnMouseWheel"
+    mc:Ignorable="d">
+    <DockPanel>
+            <controls:ControlBox Width="250" />
+        <!-- <Viewbox x:Name="ZoomViewbox" MouseWheel="ZoomViewbox_OnMouseWheel" Stretch="Fill"> -->
+        <Image Source="{Binding Bitmap}" />
+        <!--    </Viewbox> -->
+        </DockPanel>
+</Window>
