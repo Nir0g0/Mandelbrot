@@ -8,6 +8,10 @@ namespace Mandelbrot.Model
 {
     class BitmapDrawer
     {
+        public float Zoom { get; set; }
+        public int OffsetX { get; set; }
+        public int OffsetY { get; set; }
+
         public WriteableBitmap Bitmap { get; } = new WriteableBitmap(600, 400, 96, 96, PixelFormats.Bgra32, null);
 
         public BitmapDrawer()
@@ -139,9 +143,13 @@ namespace Mandelbrot.Model
             }
         }
 
-        public void DrawMendelbrot()
+        public void DrawMendelbrot(float zoom = 1, int offset_x = 0, int offset_y = 0)
         {
-            MandelbrotSetForm.GenerateBitmap(Bitmap);
+            Zoom = zoom;
+            OffsetX = offset_x;
+            OffsetY = offset_y;
+
+            MandelbrotSetForm.GenerateBitmap(Bitmap, zoom, offset_x, offset_y);
         }
 
     }

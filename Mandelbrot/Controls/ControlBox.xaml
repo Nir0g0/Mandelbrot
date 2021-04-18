@@ -71,11 +71,10 @@
                     ItemsSource="{StaticResource ColorItems}"
                     SelectedIndex="0" />
                 <CheckBox
+                    Name="RectCheckboxFill"
                     Grid.Row="0"
                     Grid.Column="3"
-                    Checked="ToggleCheck"
-                    Content="fill"
-                    Unchecked="ToggleUncheck" />
+                    Content="fill" />
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"

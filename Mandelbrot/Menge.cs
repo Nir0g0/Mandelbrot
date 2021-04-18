@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows;
@@ -18,13 +19,14 @@ namespace Mandelbrot
     /// </summary>
     public class MandelbrotSetForm
     {
-        const double MaxValueExtent = 2.0;
+         const double MaxValueExtentStart = 2.0;
+         static double MaxValueExtent;
 
         static double CalcMandelbrotSetColor(ComplexNumber c)
         {
             // from http://en.wikipedia.org/w/index.php?title=Mandelbrot_set
-            const int MaxIterations = 100;
-            const double MaxNorm = MaxValueExtent * MaxValueExtent;
+            const int MaxIterations = 500;
+            const double MaxNorm = MaxValueExtentStart * MaxValueExtentStart;
 
             int iteration = 0;
             ComplexNumber z = new ComplexNumber();
@@ -40,8 +42,9 @@ namespace Mandelbrot
                 return 0; // black
         }
 
-        public static void GenerateBitmap(WriteableBitmap bitmap)
+        public static void GenerateBitmap(WriteableBitmap bitmap, float zoom = 1, int offset_x = 0, int offset_y = 0)
         {
+            MaxValueExtent = MaxValueExtentStart / zoom; 
             var rec = new Int32Rect(0, 0, (int) bitmap.Width, (int) bitmap.Height);
             var stride = (rec.Width * PixelFormats.Bgr32.BitsPerPixel + 7) / 8;
             var bufferSize = rec.Height * stride;
@@ -50,21 +53,20 @@ namespace Mandelbrot
             double scale = 2 * MaxValueExtent / Math.Min(bitmap.Width, bitmap.Height);
             for (int i = 0; i < bitmap.Height; i++)
             {
-                double y = (bitmap.Height / 2 - i) * scale;
+                double y = (bitmap.Height / 2 - i + offset_y) * scale;
                 for (int j = 0; j < bitmap.Width; j++)
                 {
-                    double x = (j - bitmap.Width / 2) * scale;
-                    Console.WriteLine($" {j},{i} --> {x},{y}");
+                    double x = (j - bitmap.Width / 2 + offset_x) * scale;
                     double value= CalcMandelbrotSetColor(new ComplexNumber(x, y));
                     var color = GetColor(value);
-                    // ToDo
-                    //bitmap.SetPixel(j, i, GetColor(color));
+        
                     pix[4 * ((int)bitmap.Width * i + j) + 0] = color.B; // b
                     pix[4 * ((int)bitmap.Width * i + j) + 1] = color.G; // g
                     pix[4 * ((int)bitmap.Width * i + j) + 2] = color.R; // r
                     pix[4 * ((int)bitmap.Width * i + j) + 3] = color.A; // a
                 }
             }
+
             bitmap.WritePixels(rec, pix, stride, 0);
         }
 
@@ -75,28 +77,7 @@ namespace Mandelbrot
             return Color.FromArgb(255,0, 0,
                 (byte) (MaxColor * Math.Pow(value, ContrastValue)));
         }
-        /*
-        void thread_Proc(object args)
-        {
-            // start from small image to provide instant display for user
-            Size size = (Size) args;
-            int width = 16;
-            while (width * 2 < size.Width)
-            {
-                int height = width * size.Height / size.Width;
-                Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format24bppRgb);
-                GenerateBitmap(bitmap);
-                this.BeginInvoke(new SetNewBitmapDelegate(SetNewBitmap), bitmap);
-                width *= 2;
-                Thread.Sleep(200);
-            }
-
-            // then generate final image
-            Bitmap finalBitmap = new Bitmap(size.Width, size.Height, PixelFormat.Format24bppRgb);
-            GenerateBitmap(finalBitmap);
-            this.BeginInvoke(new SetNewBitmapDelegate(SetNewBitmap), finalBitmap);
-        }
-        */
+        
     }
 
     struct ComplexNumber

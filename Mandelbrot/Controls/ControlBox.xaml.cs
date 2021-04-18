@@ -11,7 +11,6 @@ namespace Mandelbrot.Controls
     public partial class ControlBox
     {
         private BitmapDrawer Model => DataContext as BitmapDrawer;
-        private bool fill = false;
 
         public ControlBox()
         {
@@ -46,16 +45,6 @@ namespace Mandelbrot.Controls
             Model.DrawCircle(width, height, 400, 200, radius);
         }
 
-        private void ToggleCheck(object sender, RoutedEventArgs e)
-        {
-            fill = true;
-        }
-
-        private void ToggleUncheck(object sender, RoutedEventArgs e)
-        {
-            fill = false;
-        }
-
         private void DrawRectangleClick(object sender, RoutedEventArgs e) {
             if (!Int32.TryParse(this.left.Text, out var left)) {
                 MessageBox.Show("Ungültige Position links");
@@ -69,6 +58,7 @@ namespace Mandelbrot.Controls
             if (!Int32.TryParse(this.height.Text, out var height)) {
                 MessageBox.Show("Ungültiger Radius");
             }
+            var fill = RectCheckboxFill.IsChecked ?? true;
             Model.DrawRectangle(left, top, width, height, fill);
         }
 

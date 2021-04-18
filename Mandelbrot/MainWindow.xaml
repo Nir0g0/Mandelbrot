@@ -13,9 +13,12 @@
     MouseWheel="MainWindow_OnMouseWheel"
     mc:Ignorable="d">
     <DockPanel>
-            <controls:ControlBox Width="250" />
-        <!-- <Viewbox x:Name="ZoomViewbox" MouseWheel="ZoomViewbox_OnMouseWheel" Stretch="Fill"> -->
-        <Image Source="{Binding Bitmap}" />
-        <!--    </Viewbox> -->
-        </DockPanel>
+        <controls:ControlBox Width="250" />
+        <Viewbox
+            x:Name="ZoomViewbox"
+            MouseWheel="ZoomViewbox_OnMouseWheel"
+            Stretch="None">
+            <Image Name="Image" Source="{Binding Bitmap}" />
+        </Viewbox>
+    </DockPanel>
 </Window>
